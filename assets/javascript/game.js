@@ -1,9 +1,10 @@
-var words=["blanket", "cat", "yarn", "flower", "tea"]
+var words=["Stark", "Tyrion", "Bran", "Raven", "DireWolf", "Throne", "Dragon", "Tywin", "Catelyn", "North", "Theon", "Iron"]
 var currentWord;
 var guesses=10
 var wins=0
 var correctGuesses = []
 var incorrectGuesses = []
+var previousWords =[]
 
 init()
 
@@ -16,6 +17,12 @@ document.onkeyup = function(event) {
             if (!correctGuesses.includes(userGuess)){
                 correctGuesses.push(userGuess);
             }
+
+            if(currentWord.length==correctGuesses.length) {
+                previousWords.push(currentWord);
+                wins++;
+                reset()
+            }
         }
         else {
             if(!incorrectGuesses.includes(userGuess)) {
@@ -25,12 +32,9 @@ document.onkeyup = function(event) {
                 document.getElementById("wrong").innerHTML+=userGuess + " ";
                 
             }
+    
+
             if (guesses==0){
-                reset()
-            }
-            if(currentWord.length==correctGuesses.length) {
-                wins++;
-                
                 reset()
             }
             console.log(correctGuesses)
@@ -60,6 +64,7 @@ function reset() {
     document.getElementById("wrong").innerHTML="";
     document.getElementById("remaining").innerHTML=guesses;
     document.getElementById("wins").innerHTML=wins;
+    document.getElementById("previous").innerHTML="Previous Words" + ":" + " " +previousWords;
 }
 function init() {
     //selects random word from array 
@@ -68,3 +73,5 @@ function init() {
         document.getElementById ("spaces").innerHTML+= "_ " 
     }
 }
+
+
